@@ -10,7 +10,7 @@ public class IdentifyProtocolSettings
 
     public static IdentifyProtocolSettings Default { get; } = new()
     {
-        ProtocolVersion = "ipfs/1.0.0",
+        ProtocolVersion = "ipfs/0.1.0",
         AgentVersion = "dotnet-libp2p/1.0.0",
     };
 }
