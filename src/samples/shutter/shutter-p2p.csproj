@@ -14,6 +14,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\libp2p\Libp2p\Libp2p.csproj" />
+		<AdditionalFiles Include="Dto\Gossip.proto" CopyToOutputDirectory="Never" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\libp2p\Libp2p\Libp2p.csproj" />
+      <ProjectReference Include="..\..\libp2p\Libp2p.Generators.Protobuf\Libp2p.Generators.Protobuf.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.25.1" />
+		<!-- <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" /> -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+  	</ItemGroup>
 </Project>

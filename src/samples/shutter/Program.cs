@@ -9,6 +9,9 @@ using Nethermind.Libp2p.Stack;
 using NReco.Logging.File;
 using Nethermind.Libp2p.Protocols;
 
+using Nethermind.Libp2p.Core.Dto;
+using Google.Protobuf;
+
 ServiceProvider serviceProvider = new ServiceCollection()
     .AddLibp2p(builder => builder)
     .AddSingleton(new IdentifyProtocolSettings
@@ -55,6 +58,7 @@ ITopic topic4 = router.Subscribe("decryptionKeys");
 topic4.OnMessage += (byte[] msg) =>
 {
     Console.WriteLine(msg.Length);
+    // Dto.Gossip.Parser.ParseFrom(msg);
 };
 // ITopic topic5 = router.Subscribe("EonPublicKey");
 // topic5.OnMessage += (byte[] msg) =>
@@ -70,6 +74,8 @@ proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23000/p2p/12D3KooWDu1DQcEXyJRwb
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23001/p2p/12D3KooWFbscPyxc3rxyoEgyLbDYpbfx6s6di5wnr4cFz77q3taH"]);
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23002/p2p/12D3KooWLmDDaCkXZgkWUnWZ1RxLzA1FHm4cVHLnNvCuGi4haGLu"]);
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23003/p2p/12D3KooW9y8s8gy52jHXvJXNU5D2HuDmXxrs5Kp4VznbiBtRUnU5"]);
+
+// Dto.Gossip gossip = new();
 
 Console.ReadLine();
 Console.WriteLine("Finished");
