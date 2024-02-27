@@ -58,7 +58,7 @@ ITopic topic4 = router.Subscribe("decryptionKeys");
 topic4.OnMessage += (byte[] msg) =>
 {
     Console.WriteLine(msg.Length);
-    // Dto.Gossip.Parser.ParseFrom(msg);
+    // Gossip.Parser.ParseFrom(msg);
 };
 // ITopic topic5 = router.Subscribe("EonPublicKey");
 // topic5.OnMessage += (byte[] msg) =>
