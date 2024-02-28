@@ -46,7 +46,11 @@ topic.OnMessage += (byte[] msg) =>
     Envelope envelope = Envelope.Parser.ParseFrom(msg);
     DecryptionKeys decryptionKeys = DecryptionKeys.Parser.ParseFrom(envelope.Message.ToByteString());
     Console.WriteLine(decryptionKeys.Eon);
-    Console.WriteLine(decryptionKeys.InstanceID);
+
+    foreach (Key key in decryptionKeys.Keys.AsEnumerable())
+    {
+        Console.WriteLine(key.Key_.ToString());
+    }
 };
 
 MyProto proto = new();
