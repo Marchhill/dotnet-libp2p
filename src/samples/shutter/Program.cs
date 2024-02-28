@@ -39,32 +39,16 @@ ILocalPeer peer = peerFactory.Create(new Identity(), "/ip4/0.0.0.0/tcp/23102");
 Console.WriteLine(peer.Address);
 
 PubsubRouter router = serviceProvider.GetService<PubsubRouter>()!;
-// ITopic topic = router.Subscribe("cipherBatch"); // ?
-// topic.OnMessage += (byte[] msg) =>
-// {
-//     Console.WriteLine(msg.Length);
-// };
-// ITopic topic2 = router.Subscribe("decryptionTrigger");
-// topic2.OnMessage += (byte[] msg) =>
-// {
-//     Console.WriteLine(msg.Length);
-// };
-// ITopic topic3 = router.Subscribe("decryptionKeyShares");
-// topic3.OnMessage += (byte[] msg) =>
-// {
-//     Console.WriteLine(msg.Length);
-// };
-ITopic topic4 = router.Subscribe("decryptionKeys");
-topic4.OnMessage += (byte[] msg) =>
+
+ITopic topic = router.Subscribe("decryptionKeys");
+topic.OnMessage += (byte[] msg) =>
 {
-    Console.WriteLine(msg.Length);
-    // Gossip.Parser.ParseFrom(msg);
+    Envelope envelope = Envelope.Parser.ParseFrom(msg);
+    DecryptionKeys decryptionKeys = DecryptionKeys.Parser.ParseFrom(envelope.Message.ToByteString());
+    Console.WriteLine(decryptionKeys.Eon);
+    Console.WriteLine(decryptionKeys.InstanceID);
 };
-// ITopic topic5 = router.Subscribe("EonPublicKey");
-// topic5.OnMessage += (byte[] msg) =>
-// {
-//     Console.WriteLine(msg.Length);
-// };
+
 MyProto proto = new();
 
 _ = router.RunAsync(peer, proto, token: ts.Token);
@@ -74,8 +58,6 @@ proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23000/p2p/12D3KooWDu1DQcEXyJRwb
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23001/p2p/12D3KooWFbscPyxc3rxyoEgyLbDYpbfx6s6di5wnr4cFz77q3taH"]);
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23002/p2p/12D3KooWLmDDaCkXZgkWUnWZ1RxLzA1FHm4cVHLnNvCuGi4haGLu"]);
 proto.OnAddPeer?.Invoke(["/ip4/64.226.117.95/tcp/23003/p2p/12D3KooW9y8s8gy52jHXvJXNU5D2HuDmXxrs5Kp4VznbiBtRUnU5"]);
-
-// Dto.Gossip gossip = new();
 
 Console.ReadLine();
 Console.WriteLine("Finished");

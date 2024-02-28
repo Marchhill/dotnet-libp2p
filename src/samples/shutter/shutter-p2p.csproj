@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="Dto\Gossip.proto" CopyToOutputDirectory="Never" />
+		<AdditionalFiles Include="Dto\gossip.proto" CopyToOutputDirectory="Never" />
 		<AdditionalFiles Include="Dto\any.proto" CopyToOutputDirectory="Never" />
 	</ItemGroup>
 
